@@ -18,31 +18,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Alexander</td>
-                        <td>Freites</td>
-                        <td>33.698.258</td>
-                        <td>2000</td>
-                        <td>
-                            <i class="fas fa-edit fa-lg text-info me-3"></i>
-                            <i class="fas fa-trash-alt fa-lg text-danger ms-2"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Angelina</td>
-                        <td>Freites</td>
-                        <td>39.258.145</td>
-                        <td>5000</td>
-                        <td>
-                            <i class="fas fa-edit fa-lg text-info me-3"></i>
-                            <i class="fas fa-trash-alt fa-lg text-danger ms-2"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ana</td>
-                        <td>Tevez</td>
-                        <td>33.698.258</td>
-                        <td>2000</td>
+                    <tr *ngFor="let empleado of empleados">
+                        <td>{{ empleado.nombre }}</td>
+                        <td>{{ empleado.apellido }}</td>
+                        <td>{{ empleado.documento }}</td>
+                        <td>{{ empleado.salario }}</td>
                         <td>
                             <i class="fas fa-edit fa-lg text-info me-3"></i>
                             <i class="fas fa-trash-alt fa-lg text-danger ms-2"></i>
