@@ -17,6 +17,11 @@ export class EmpleadosService { // EXPORTACIONES DEL COMPONENTE
     return this.firestore.collection('empleados', ref => ref.orderBy('fechaCreacion', 'asc')).snapshotChanges();
   }
 
+  deleteEmpleados(id: string): Promise<any>{
+    return this.firestore.collection('empleados').doc(id).delete();
+
+  }
+
 
 
 }

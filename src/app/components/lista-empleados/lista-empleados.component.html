@@ -7,7 +7,8 @@
                 <!-- <button class="btn btn-primary" type="button">Button</button> -->
             </div>
             <!-- <button type="button" class="btn btn-dark  btn-sm float-right">Agregar</button> -->
-            <table class="table table-striped table-hover mt-5">
+            <h5 *ngIf="empleados.length == 0">No Hay Registros Para Mostrar</h5>
+            <table *ngIf="empleados.length > 0" class="table table-striped table-hover mt-5">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -22,10 +23,10 @@
                         <td>{{ empleado.nombre }}</td>
                         <td>{{ empleado.apellido }}</td>
                         <td>{{ empleado.documento }}</td>
-                        <td>{{ empleado.salario }}</td>
+                        <td>{{ empleado.salario | currency }}</td>
                         <td>
                             <i class="fas fa-edit fa-lg text-info me-3"></i>
-                            <i class="fas fa-trash-alt fa-lg text-danger ms-2"></i>
+                            <i (click)="deleteEmpleado(empleado.id)" class="fas fa-trash-alt fa-lg text-danger ms-2"></i>
                         </td>
                     </tr>
                 </tbody>
