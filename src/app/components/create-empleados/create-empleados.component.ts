@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';  // ESTAS SON LAS IMPORTACIONES 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { EmpleadosService } from '../../service/empleados.service';
                                                     // ES DECIR LOS MODULOS QUE NECESITAMOS PARA QUE LA APLICACION FUNCIONE 
 @Component({  // EL DECORADOR 
@@ -11,10 +12,12 @@ import { EmpleadosService } from '../../service/empleados.service';
 export class CreateEmpleadosComponent implements OnInit {  // ESTE ES PARA EXPORTAR
   createEmpleado: FormGroup;
   submitted = false;
+  loading = false;
 
   constructor(private fb: FormBuilder,
               private _empleadosService: EmpleadosService,
-              private router: Router) { 
+              private router: Router,
+              private toastr: ToastrService) { 
     this.createEmpleado= this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(15)]],
       apellido: ['', [Validators.required, Validators.maxLength(15)]],
@@ -42,12 +45,16 @@ export class CreateEmpleadosComponent implements OnInit {  // ESTE ES PARA EXPOR
       fechaCreacion: new Date(),
       fechaActualizacion: new Date()
     }
-
+    this.loading = true;
     this._empleadosService.agregarEmpleado(empleado).then(() =>{
-      console.log("empleado registrado exitossamnete");
+      this.toastr.success('Registro exitoso', 'Empleado registrado', {
+        positionClass: 'toast-bottom-right'
+      });
+      this.loading = false;
       this.router.navigate(['./lista-empleados'])
     }).catch(error => {
       console.log(error);
+      this.loading = false;
     })
   }
 
