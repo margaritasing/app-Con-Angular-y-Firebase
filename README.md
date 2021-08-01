@@ -1,5 +1,7 @@
 # Empleados
 
+App para el CRUD de empleados, utilizando Angular y Firebase para el backend
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.4.
 
 ## Development server
