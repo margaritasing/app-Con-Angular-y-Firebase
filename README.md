@@ -1,6 +1,23 @@
 # Empleados
 
-App para el CRUD de empleados, utilizando Angular y Firebase para el backend
+## CRUD en Angular, utilizaremos como BackEnd Firebase, Firestore y deployaremos el proyecto.
+
+## Se aplicaron:
+   ### Databinding
+   ### Directivas
+   ### Formularios Reactivos
+   ### Validación de Formularios
+   ### Reutilización de componentes
+   ### Componentes
+   ### Servicios
+   ### Pipes
+   ###  Bootstrap
+   ### Fontawesome
+   ### Toastr
+   ### Firebase
+   ### Firestore
+   ### Deploy
+   
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.4.
 
