@@ -6,7 +6,8 @@ import { CreateEmpleadosComponent } from './components/create-empleados/create-e
 const routes: Routes = [
   { path: '', redirectTo: 'lista-empleados', pathMatch: 'full'},
   { path: 'lista-empleados', component: ListaEmpleadosComponent },
-  { path: 'createEmpleado',  component: CreateEmpleadosComponent },
+  { path: 'editEmpleado/:id', component: CreateEmpleadosComponent },
+  { path: 'createEmpleado', component: CreateEmpleadosComponent }, 
   { path: '**', redirectTo: 'lista-empleados', pathMatch: 'full'}
  
 ];

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';  // ESTAS SON LAS IMPORTACIONES 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EmpleadosService } from '../../service/empleados.service';
                                                     // ES DECIR LOS MODULOS QUE NECESITAMOS PARA QUE LA APLICACION FUNCIONE 
@@ -13,30 +13,49 @@ export class CreateEmpleadosComponent implements OnInit {  // ESTE ES PARA EXPOR
   createEmpleado: FormGroup;
   submitted = false;
   loading = false;
+  id: string | null;
+  titulo = 'Agregar Empleado';
 
   constructor(private fb: FormBuilder,
               private _empleadosService: EmpleadosService,
               private router: Router,
-              private toastr: ToastrService) { 
+              private toastr: ToastrService,
+              private aRoute: ActivatedRoute) { 
     this.createEmpleado= this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(15)]],
       apellido: ['', [Validators.required, Validators.maxLength(15)]],
       documento: ['', [Validators.required, Validators.maxLength(10)]],
       salario: ['', [Validators.required, Validators.maxLength(15)]]
     })
+    this.id = this.aRoute.snapshot.paramMap.get('id');
+    console.log(this.id)
 
   } // UN CONTRUCTOR, DE LOS DE SIEMPRE...
 
   ngOnInit(): void {
+    this.esEditar();
   }
 
-  agregarEmpleado(){
+  agregarEditarEmpleado(){
+    
     this.submitted= true;
     
     if(this.createEmpleado.invalid){
       return;
     }
 
+    if (this.id === null) {
+      this.agregarEmpleado();   
+    }else{
+      this.editarEmpleado(this.id);
+    }
+
+
+
+  }
+    
+  agregarEmpleado(){
+    
     const empleado: any = {
       nombre: this.createEmpleado.value.nombre, 
       apellido: this.createEmpleado.value.apellido, 
@@ -56,6 +75,46 @@ export class CreateEmpleadosComponent implements OnInit {  // ESTE ES PARA EXPOR
       console.log(error);
       this.loading = false;
     })
+  }
+
+  editarEmpleado(id: string){
+     
+    const empleado: any = {
+      nombre: this.createEmpleado.value.nombre, 
+      apellido: this.createEmpleado.value.apellido, 
+      documento: this.createEmpleado.value.documento, 
+      salario: this.createEmpleado.value.salario,
+      fechaActualizacion: new Date()
+    }
+
+    this.loading = true;
+
+    this._empleadosService.actualizarEmpleado(id, empleado).then(() => {
+      this.loading = false;
+      this.toastr.info('La modificacion fue correcta', 'Empleado actualizado', {
+        positionClass: 'toast-bottom-right'
+      })
+      this.router.navigate(['./lista-empleados'])
+    })
+  }
+
+  esEditar(){
+
+    if (this.id !== null) {
+      this.titulo = 'Editar Empleado' 
+      this.loading = true;
+      this._empleadosService.getEmpleado(this.id).subscribe(data =>{
+        this.loading = false;
+        console.log(data.payload.data()['nombre']);
+        this.createEmpleado.setValue({
+          nombre: data.payload.data()['nombre'],
+          apellido: data.payload.data()['apellido'],
+          documento: data.payload.data()['documento'],
+          salario: data.payload.data()['salario'],
+        })
+      })
+      
+    }
   }
 
 }

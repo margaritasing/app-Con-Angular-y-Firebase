@@ -22,6 +22,14 @@ export class EmpleadosService { // EXPORTACIONES DEL COMPONENTE
 
   }
 
+  getEmpleado(id: string): Observable<any>{
+    return this.firestore.collection('empleados').doc(id).snapshotChanges();
+  }
+
+  actualizarEmpleado(id: string, data:any): Promise<any>{
+    return this.firestore.collection('empleados').doc(id).update(data);
+  }
+
 
 
 }
