@@ -1,6 +1,7 @@
 # Empleados
 
 ## CRUD en Angular, utilizaremos como BackEnd Firebase, Firestore y deployaremos el proyecto.
+## Link de la aplicacion : https://empleados-d5164.web.app/lista-empleados
 
 ## Se aplicaron:
    ### Databinding
